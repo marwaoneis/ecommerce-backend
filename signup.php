@@ -1,5 +1,4 @@
 <?php
-header('Access-Controll-Allow-Origin:*');
 include("connection.php");
 
 
@@ -15,9 +14,8 @@ if ($_POST['action'] == "signup") {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = $mysqli->prepare('insert into users(email,password,id_usertype,name,last_name) 
-    values(?,?,?,?,?)');
-    $query->bind_param('sssssii', $user_name, $first_name, $email, $password, $gender, $id_user_type);
+    $query = $mysqli->prepare('insert into users(user_name, first_name, last_name, email, password, gender, id_user_type) values(?,?,?,?,?,?,?)');
+    $query->bind_param('ssssssi', $user_name, $first_name, $last_name, $email, $hashed_password, $gender, $id_user_type);
     $query->execute();
 
     $response = [];

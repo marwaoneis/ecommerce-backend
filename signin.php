@@ -23,16 +23,16 @@ if ($num_rows == 0) {
     echo json_encode($response);
 } else {
     if (password_verify($password, $hashed_password)) {
-        $key = "your_secret";
+        $key = "your_secret_key";
         $payload_array = [];
-        $payload_array["user_id"] = $id_user;
-        $payload_array["usertype"] = $id_user_type;
+        $payload_array["id_user"] = $id_user;
+        $payload_array["id_user_type"] = $id_user_type;
         $payload_array["exp"] = time() + 3600;
         $payload = $payload_array;
         $response['status'] = 'logged in successfully';
         $jwt = JWT::encode($payload, $key, 'HS256');
         $response['jwt'] = $jwt;
-        $response['usertype'] = $id_user_type;
+        $response['id_user_type'] = $id_user_type;
         header('Content-Type: application/json');
         echo json_encode($response);
     } else {
