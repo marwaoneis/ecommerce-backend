@@ -1,5 +1,5 @@
 <?php
-include_once("./jwt_check.php");
+include_once("./jwt_auth.php");
 
 if ($_POST['action'] == 'update') {
     if ($decoded->id_user_type != 1) {
