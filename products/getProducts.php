@@ -4,12 +4,11 @@ include_once("./jwt_auth.php");
 
 if ($_POST['action'] == 'getproducts') {
     if ($decoded->id_user_type != 2) {
-        // Return 401 Unauthorized if the user is not a User(buyer)
         http_response_code(401);
         echo json_encode(array("message" => "Unauthorized Access"));
         exit;
     }
-    $query = $con->prepare('SELECT * FROM `products`');
+    $query = $mysqli->prepare('SELECT * FROM `products`');
     $query->execute();
 
     if ($query->error) {

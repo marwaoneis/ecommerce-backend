@@ -3,7 +3,6 @@ include_once("./jwt_auth.php");
 
 if ($_POST['action'] == "create") {
     if ($decoded->id_user_type != 1) {
-        // Return 401 Unauthorized if the user is not a Seller
         http_response_code(401);
         echo json_encode(array("message" => "Unauthorized Access"));
         exit;
@@ -13,9 +12,9 @@ if ($_POST['action'] == "create") {
     $price = $_POST['price'];
     $description = $_POST['description'];
 
-    $query = $con->prepare('INSERT INTO `products` (`product_name`, `price`, `description`, `id_user`) 
-                            VALUES (?, ?, ?, ?);');
-    $query->bind_param('sisi', $product_name, $price, $description, $id_user);
+    $query = $mysqli->prepare('INSERT INTO `products` (`product_name`, `price`, `description`) 
+                            VALUES (?, ?, ?);');
+    $query->bind_param('sis', $product_name, $price, $description);
     $query->execute();
 
     $response = [];

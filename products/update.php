@@ -15,8 +15,8 @@ if ($_POST['action'] == 'update') {
     $id_product = $_POST["id_product"];
 
     // Update an existing product in the database if and only if the user is the owner of the product
-    $query = $con->prepare('UPDATE `products` SET `product_name` = ?, `price` = ?, `description` = ? WHERE `id_product` = ? AND `id_user` = ?');
-    $query->bind_param('sisii', $product_name, $price, $description, $id_product, $id_user);
+    $query = $mysqli->prepare('UPDATE `products` SET `product_name` = ?, `price` = ?, `description` = ? WHERE `id_product` = ?');
+    $query->bind_param('sisi', $product_name, $price, $description, $id_product);
     $query->execute();
 
     if ($query->error) {
